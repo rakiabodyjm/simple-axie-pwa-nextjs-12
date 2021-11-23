@@ -34,7 +34,7 @@ module.exports = {
     React: true,
     JSX: true,
   },
-  ignorePatterns: ['./next*', '.eslintrc.js', '.next.config.js'],
+  ignorePatterns: ['./next*', '.eslintrc.js', '.next.config.js', 'serviceworker.js'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'react/react-in-jsx-scope': 0,

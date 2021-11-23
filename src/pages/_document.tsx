@@ -1,5 +1,5 @@
 import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
-import Script from 'next/script'
+
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
     const initialProps = await Document.getInitialProps(ctx)
@@ -33,17 +33,6 @@ class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#ffffff" />
           <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
           <meta name="theme-color" content="#ffffff" />
-          <Script
-            id="next-pwa"
-            type="module"
-            src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate"
-            dangerouslySetInnerHTML={{
-              __html: `
-             import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate'; const el =
-            document.createElement('pwa-update'); document.body.appendChild(el);
-          `,
-            }}
-          ></Script>
         </Head>
         <body>
           <Main />
