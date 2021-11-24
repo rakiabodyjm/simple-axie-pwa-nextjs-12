@@ -71,9 +71,16 @@ module.exports = withPWA({
 
 ---
 
-## And Finally
+5. Add to `.gitignore`\_
 
-5. Build
+```
+**/public/workbox-*.js
+**/public/sw.js
+```
+
+---
+
+6. Build
 
 ```
 yarn build
