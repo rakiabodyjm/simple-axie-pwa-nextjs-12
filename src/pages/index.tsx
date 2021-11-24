@@ -60,10 +60,6 @@ export default function IndexPage() {
       })
   }, [])
 
-  useEffect(() => {
-    console.log('withScholarData', withScholarData)
-  }, [withScholarData])
-
   const managerSummary = useMemo(() => {
     if (withScholarData) {
       return withScholarData.reduce(
@@ -116,6 +112,7 @@ export default function IndexPage() {
         maxWidth="sm"
         style={{
           padding: 0,
+          paddingBottom: 16,
         }}
         sx={{
           paddingBottom: (theme) => theme.spacing(2),

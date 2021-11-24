@@ -10,7 +10,7 @@ import Layout from '@src/components/Layout'
 import { SnackbarProvider } from 'notistack'
 import { Provider } from 'react-redux'
 import store from '@src/redux/store'
-
+import Head from 'next/head'
 const options: ThemeOptions = {
   typography: {
     fontSize: 13.4,
@@ -49,38 +49,43 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       }),
     [darkMode]
   )
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/serviceworker.js').then(
-          (registration) => {
-            console.log('Service Worker registration successful with scope: ', registration.scope)
-          },
-          (err) => {
-            console.log('Service Worker registration failed: ', err)
-          }
-        )
-      })
-    }
-  }, [])
+  // useEffect(() => {
+  //   if ('serviceWorker' in navigator) {
+  //     window.addEventListener('load', () => {
+  //       navigator.serviceWorker.register('/sw.js').then(
+  //         (registration) => {
+  //           console.log('Service Worker registration successful with scope: ', registration.scope)
+  //         },
+  //         (err) => {
+  //           console.log('Service Worker registration failed: ', err)
+  //         }
+  //       )
+  //     })
+  //   }
+  // }, [])
 
   return (
-    <Provider store={store}>
-      <CacheProvider value={cache}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <SnackbarProvider>
-            <Layout
-              darkMode={darkMode}
-              toggleDarkMode={() => {
-                setDarkMode((prevState) => !prevState)
-              }}
-            >
-              <Component {...pageProps} />
-            </Layout>
-          </SnackbarProvider>
-        </ThemeProvider>
-      </CacheProvider>
-    </Provider>
+    <>
+      <Head>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Provider store={store}>
+        <CacheProvider value={cache}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <SnackbarProvider>
+              <Layout
+                darkMode={darkMode}
+                toggleDarkMode={() => {
+                  setDarkMode((prevState) => !prevState)
+                }}
+              >
+                <Component {...pageProps} />
+              </Layout>
+            </SnackbarProvider>
+          </ThemeProvider>
+        </CacheProvider>
+      </Provider>
+    </>
   )
 }

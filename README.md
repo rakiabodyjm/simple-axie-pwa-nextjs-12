@@ -14,21 +14,67 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+---
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## PWA Transformation
 
-## Learn More
+To start with creating a PWA:
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Create `manifest` file through [SimiCart](https://www.simicart.com/manifest-generator.html/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Use SimiCart to generate new `manifest.webmanifest`
+  > _This will serve as our first version of `manifest.json`_
+- Put link to `manifest.json` in `_document.tsx`
 
-## Deploy on Vercel
+```html
+<link rel="manifest" href="/manifest.json" />
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. Create more favicon and app icons to be used when installing on iOS, Android and Windows
+
+- Go to [Favicon.ico & App Icon Generator](https://www.favicon-generator.org/)
+- Copy generated `manifest.json` and paste into `public` folder
+- Merge `manifest.json` key and value pairs with `manifest.webmanifest` files
+- Download generated Icons and images and place into `public` folder
+
+---
+
+3. Install next-pwa
+
+```bash
+yarn add next-pwa
+```
+
+---
+
+4. Configure `next-pwa` in `next.config.js`
+
+```
+const withPWA = require('next-pwa')
+
+/** @type {import('next').NextConfig} */
+module.exports = withPWA({
+  reactStrictMode: true,
+  pwa: {
+    dest: 'public',
+    register: true,
+    disable: process.env.NODE_ENV === 'development',
+  },
+})
+
+
+```
+
+---
+
+## And Finally
+
+5. Build
+
+```
+yarn build
+```
